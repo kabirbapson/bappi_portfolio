@@ -22,9 +22,23 @@ const LandingSection = () => {
   const { onOpen } = useAlertContext();
 
   const formik = useFormik({
-    initialValues: {},
-    onSubmit: (values) => {},
-    validationSchema: Yup.object({}),
+    initialValues: {
+      firstName: '',
+      email: '',
+      type: '',
+      comment:''
+    },
+    onSubmit: (values) => {
+      values.preventDefault()
+      console.log(values);
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required('first name is required'),
+      email: Yup.string().email('Invalid email').required('email is required'),
+      type: Yup.string().required(),
+      comment:Yup.string()
+    }),
+    
   });
 
   return (
@@ -39,15 +53,15 @@ const LandingSection = () => {
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">
-          <form>
+          <form  >
             <VStack spacing={4}>
-              <FormControl isInvalid={false}>
+              <FormControl isInvalid={true}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   id="firstName"
                   name="firstName"
                 />
-                <FormErrorMessage></FormErrorMessage>
+                <FormErrorMessage>{ }</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={false}>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
