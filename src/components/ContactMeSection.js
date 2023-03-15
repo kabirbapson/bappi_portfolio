@@ -29,7 +29,6 @@ const LandingSection = () => {
     },
     onSubmit: (values) => {
       submit( values);
-      onOpen(response.type, response.message);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("first name is required"),
@@ -39,6 +38,14 @@ const LandingSection = () => {
     }),
   });
 
+  useEffect(() => {
+    if (response) {
+      onOpen(response.type, response.message);
+      if (response.type === "success") {
+        formik.resetForm();
+      }
+    }
+  }, [response]);
   return (
     <FullScreenSection
       isDarkBackground
