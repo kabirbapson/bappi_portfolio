@@ -20,7 +20,6 @@ import { useAlertContext } from "../context/alertContext";
 const LandingSection = () => {
   const { isLoading, response, submit } = useSubmit();
   const { onOpen } = useAlertContext();
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -29,9 +28,8 @@ const LandingSection = () => {
       comment: "",
     },
     onSubmit: (values) => {
-      isLoading
-      onOpen(values.firstName)
-      
+      submit( values);
+      onOpen(response.type, response.message);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("first name is required"),
@@ -40,8 +38,6 @@ const LandingSection = () => {
       comment: Yup.string().required(),
     }),
   });
-
-  console.log(formik.errors);
 
   return (
     <FullScreenSection
@@ -66,7 +62,11 @@ const LandingSection = () => {
                   id="firstName"
                   name="firstName"
                 />
-                <FormErrorMessage>{formik.errors.firstName ? <div>{formik.errors.firstName}</div>:null}</FormErrorMessage>
+                <FormErrorMessage>
+                  {formik.errors.firstName ? (
+                    <div>{formik.errors.firstName}</div>
+                  ) : null}
+                </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={formik.errors.email}>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
@@ -74,7 +74,6 @@ const LandingSection = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-
                   id="email"
                   name="email"
                   type="email"
@@ -102,14 +101,18 @@ const LandingSection = () => {
                   value={formik.values.comment}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-
                   id="comment"
                   name="comment"
                   height={250}
                 />
                 <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
-              <Button isLoading={isLoading} type="submit" colorScheme="purple" width="full">
+              <Button
+                isLoading={isLoading}
+                type="submit"
+                colorScheme="purple"
+                width="full"
+              >
                 Submit
               </Button>
             </VStack>
