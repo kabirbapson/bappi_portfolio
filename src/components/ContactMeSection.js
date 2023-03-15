@@ -28,7 +28,7 @@ const LandingSection = () => {
       comment: "",
     },
     onSubmit: (values) => {
-      submit( values);
+      submit(values);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("first name is required"),
