@@ -58,7 +58,7 @@ const Header = () => {
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
     >
-      
+
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
           px={16}
@@ -125,6 +125,7 @@ const socials = [
    url: "https://stackoverflow.com/users/sureskills", 
  }, 
 ]; 
+
 
 /** 
 * This component illustrates the use of both the useRef hook and useEffect hook. 
